@@ -24,7 +24,7 @@ resource "azurerm_web_application_firewall_policy" "example" {
         variable_name = "RemoteAddr"
       }
       operator = "IPMatch"
-      values   = ["10.0.0.0/8", "192.168.0.0/16"]
+      match_values = ["10.0.0.0/8", "192.168.0.0/16"]
     }
   }
 
@@ -39,7 +39,7 @@ resource "azurerm_web_application_firewall_policy" "example" {
         variable_name = "RemoteAddr"
       }
       operator = "IPMatch"
-      values   = ["10.0.0.0/8", "192.168.0.0/16"]
+      match_values = ["10.0.0.0/8", "192.168.0.0/16"]
     }
   }
 }

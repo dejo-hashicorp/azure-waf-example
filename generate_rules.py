@@ -49,7 +49,7 @@ def generate_custom_rules_blocks(rules):
         variable_name = "RemoteAddr"
       }}
       operator = "IPMatch"
-      values   = {json.dumps(rule['match_values'])}
+      match_values = {json.dumps(rule['match_values'])}
     }}
   }}
 """
