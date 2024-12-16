@@ -33,9 +33,9 @@ def read_settings_file(settings_file):
             print(f"Error parsing {settings_file}: {e}")
             return None
 
-def generate_custom_rule_blocks(rules):
-    """Generate Terraform custom_rule blocks from parsed JSON rules."""
-    blocks = []
+def generate_custom_rules_block(rules):
+    """Generate Terraform custom_rules block with multiple custom_rule blocks."""
+    custom_rule_blocks = []
     for rule in rules:
         block = f"""
     custom_rule {{
@@ -50,10 +50,14 @@ def generate_custom_rule_blocks(rules):
         operator = "IPMatch"
         values   = {json.dumps(rule['match_values'])}
       }}
-    }}
-"""
-        blocks.append(block)
-    return blocks
+    }}"""
+        custom_rule_blocks.append(block)
+
+    # Wrap all custom_rule blocks into a custom_rules block
+    return f"""
+  custom_rules {{
+    {"".join(custom_rule_blocks)}
+  }}"""
 
 def generate_managed_rules_block(settings):
     """Generate the managed_rules block based on the settings.json file."""
@@ -66,7 +70,7 @@ def generate_managed_rules_block(settings):
   }}
 """ if settings else ""
 
-def write_to_main_tf(output_file, settings, managed_rules_block, custom_rule_blocks):
+def write_to_main_tf(output_file, settings, managed_rules_block, custom_rules_block):
     """Write the complete Terraform configuration to the main.tf file."""
     with open(output_file, "w") as f:
         f.write('resource "azurerm_web_application_firewall_policy" "example" {\n')
@@ -77,8 +81,7 @@ def write_to_main_tf(output_file, settings, managed_rules_block, custom_rule_blo
         f.write('    mode = "Prevention"\n')
         f.write('  }\n')
         f.write(managed_rules_block)
-        for block in custom_rule_blocks:
-            f.write(block)
+        f.write(custom_rules_block)
         f.write("}\n")
 
 def main():
@@ -97,8 +100,8 @@ def main():
         return
 
     managed_rules_block = generate_managed_rules_block(settings)
-    custom_rule_blocks = generate_custom_rule_blocks(rules)
-    write_to_main_tf(OUTPUT_FILE, settings, managed_rules_block, custom_rule_blocks)
+    custom_rules_block = generate_custom_rules_block(rules)
+    write_to_main_tf(OUTPUT_FILE, settings, managed_rules_block, custom_rules_block)
     print(f"Terraform configuration written to {OUTPUT_FILE}")
 
 if __name__ == "__main__":

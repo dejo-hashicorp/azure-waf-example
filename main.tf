@@ -13,6 +13,8 @@ resource "azurerm_web_application_firewall_policy" "example" {
     }
   }
 
+  custom_rules {
+    
     custom_rule {
       name      = "AllowRule1"
       priority  = 1000
@@ -26,7 +28,6 @@ resource "azurerm_web_application_firewall_policy" "example" {
         values   = ["10.0.0.0/8", "192.168.0.0/16"]
       }
     }
-
     custom_rule {
       name      = "AllowRule2"
       priority  = 2000
@@ -40,4 +41,4 @@ resource "azurerm_web_application_firewall_policy" "example" {
         values   = ["10.0.0.0/8", "192.168.0.0/16"]
       }
     }
-}
+  }}
