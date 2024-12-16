@@ -66,13 +66,13 @@ def generate_managed_rules_block(settings):
   }}
 """ if settings else ""
 
-def write_to_main_tf(output_file, managed_rules_block, custom_rule_blocks):
+def write_to_main_tf(output_file, settings, managed_rules_block, custom_rule_blocks):
     """Write the complete Terraform configuration to the main.tf file."""
     with open(output_file, "w") as f:
         f.write('resource "azurerm_web_application_firewall_policy" "example" {\n')
-        f.write('  name                = "example-waf-policy"\n')
-        f.write('  resource_group_name = "example-resource-group"\n')
-        f.write('  location            = "West Europe"\n')
+        f.write(f'  name                = "example-waf-policy"\n')
+        f.write(f'  resource_group_name = "{settings["resource_group_name"]}"\n')
+        f.write(f'  location            = "{settings["location"]}"\n')
         f.write('  policy_settings {\n')
         f.write('    mode = "Prevention"\n')
         f.write('  }\n')
@@ -98,7 +98,7 @@ def main():
 
     managed_rules_block = generate_managed_rules_block(settings)
     custom_rule_blocks = generate_custom_rule_blocks(rules)
-    write_to_main_tf(OUTPUT_FILE, managed_rules_block, custom_rule_blocks)
+    write_to_main_tf(OUTPUT_FILE, settings, managed_rules_block, custom_rule_blocks)
     print(f"Terraform configuration written to {OUTPUT_FILE}")
 
 if __name__ == "__main__":
