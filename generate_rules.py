@@ -42,8 +42,9 @@ def generate_custom_rules_blocks(rules):
     name      = "{rule['name']}"
     priority  = {rule['priority']}
     action    = "Allow"
+    rule_type = "MatchRule"
 
-    match_condition {{
+    match_conditions {{
       match_variables {{
         variable_name = "RemoteAddr"
       }}

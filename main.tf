@@ -17,8 +17,9 @@ resource "azurerm_web_application_firewall_policy" "example" {
     name      = "AllowRule1"
     priority  = 1000
     action    = "Allow"
+    rule_type = "MatchRule"
 
-    match_condition {
+    match_conditions {
       match_variables {
         variable_name = "RemoteAddr"
       }
@@ -31,8 +32,9 @@ resource "azurerm_web_application_firewall_policy" "example" {
     name      = "AllowRule2"
     priority  = 2000
     action    = "Allow"
+    rule_type = "MatchRule"
 
-    match_condition {
+    match_conditions {
       match_variables {
         variable_name = "RemoteAddr"
       }
