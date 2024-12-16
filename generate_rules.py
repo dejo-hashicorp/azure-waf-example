@@ -70,6 +70,12 @@ def generate_managed_rules_block(settings):
 def write_to_main_tf(output_file, settings, managed_rules_block, custom_rules_blocks):
     """Write the complete Terraform configuration to the main.tf file."""
     with open(output_file, "w") as f:
+        # Provider block
+        f.write('provider "azurerm" {\n')
+        f.write('  features {}\n')
+        f.write('}\n\n')
+
+        # WAF policy resource
         f.write('resource "azurerm_web_application_firewall_policy" "example" {\n')
         f.write(f'  name                = "example-waf-policy"\n')
         f.write(f'  resource_group_name = "{settings["resource_group_name"]}"\n')
