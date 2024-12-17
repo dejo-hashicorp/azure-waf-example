@@ -14,8 +14,8 @@ resource "azurerm_web_application_firewall_policy" "example" {
   }
 
   custom_rules {
-    name      = "AllowRule1"
-    priority  = 1000
+    name      = "AllowRule2"
+    priority  = 2
     action    = "Allow"
     rule_type = "MatchRule"
 
@@ -29,8 +29,8 @@ resource "azurerm_web_application_firewall_policy" "example" {
   }
 
   custom_rules {
-    name      = "AllowRule2"
-    priority  = 2000
+    name      = "AllowRule1"
+    priority  = 1
     action    = "Allow"
     rule_type = "MatchRule"
 
