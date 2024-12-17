@@ -1,7 +1,3 @@
-provider "azurerm" {
-  features {}
-}
-
 resource "azurerm_web_application_firewall_policy" "example" {
   name                = "example-waf-policy"
   resource_group_name = "example-resource-group"
