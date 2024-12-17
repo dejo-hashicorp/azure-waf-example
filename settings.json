@@ -1,7 +1,7 @@
 {
   "type": "OWASP",
   "version": "3.2",
-  "resource_group_name": "example-resource-group",
-  "location": "US East"
+  "resource_group_name": "east-waf-rg",
+  "location": "eastus"
 }
 

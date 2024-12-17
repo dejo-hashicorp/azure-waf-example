@@ -1,7 +1,7 @@
 resource "azurerm_web_application_firewall_policy" "example" {
   name                = "example-waf-policy"
-  resource_group_name = "example-resource-group"
-  location            = "US East"
+  resource_group_name = "east-waf-rg"
+  location            = "eastus"
   policy_settings {
     mode = "Prevention"
   }
